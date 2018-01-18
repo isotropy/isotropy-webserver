@@ -12,8 +12,16 @@
   },
   "main": "dist/isotropy-webserver.js",
   "types": "dist/isotropy-webserver.d.ts",
-  "dependencies": {},
+  "dependencies": {
+    "accepts": "^1.3.4",
+    "cookies": "^0.7.1",
+    "koa": "^2.4.1",
+    "koa-router": "^7.3.0"
+  },
   "devDependencies": {
+    "@types/accepts": "^1.3.4",
+    "@types/cookies": "^0.7.1",
+    "@types/koa": "^2.0.43",
     "@types/mocha": "^2.2.44",
     "@types/node": "^8.0.57",
     "@types/should": "^11.2.0",

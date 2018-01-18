@@ -1,7 +1,9 @@
-import Router from "./router";
+import { Context, Request, Response } from "koa";
+
+export type 
 
 export default class Server {
-  router: Router;
+  routes: ;
 
   constructor() {
     this.router = new Router();
