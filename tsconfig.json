@@ -7,11 +7,14 @@
     "moduleResolution": "node",
     "declaration": true,
     "lib": [
-      "es2017",
+      "es2017", "dom"
     ],
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
-    "strict": true
+    "strict": true,
+    "types": [
+      "node"
+    ]
   },
   "include": [
     "./src/**/*"
