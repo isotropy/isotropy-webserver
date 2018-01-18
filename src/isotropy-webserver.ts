@@ -4,20 +4,26 @@ import Router = require("koa-router");
 import koaBody = require("koa-body")
 import { NextFunction } from "express-serve-static-core";
 import exception from "./exception";
+import { Server } from "http";
 
 export type Route = [string, string,
   (context: Context, next: NextFunction) => void
 ];
 
-export default class Server {
+export default class IsotropyServer {
   app: Koa;
   router: Router;
+  __instance: any;
 
   constructor() {
     this.app = new Koa();
     this.app.use(koaBody());
 
     this.router = new Router();
+  }
+
+  address() {
+    return this.__instance ? this.__instance.address() : undefined;
   }
 
   addRoutes(routes: Route[]) {
@@ -42,7 +48,7 @@ export default class Server {
   }
 
   listen(port: number) {
-    this.app.listen(port);
-    return this.app;
+    this.__instance = this.app.listen(port);
+    return this.__instance;
   }
 }
