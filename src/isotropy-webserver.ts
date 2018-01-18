@@ -4,11 +4,9 @@ import koaBody from "koa-body"
 import { NextFunction } from "express-serve-static-core";
 import exception from "./exception";
 
-export interface Route {
-  method: string;
-  url: string;
-  handler: (context: Context, next: NextFunction) => void;
-}
+export type Route = [string, string,
+  (context: Context, next: NextFunction) => void
+];
 
 export default class Server {
   app: Koa;
@@ -17,20 +15,23 @@ export default class Server {
   constructor() {
     this.app = new Koa();
     this.app.use(koaBody());
-    
+
     this.router = new Router();
   }
 
   addRoutes(routes: Route[]) {
-    routes.forEach(route => 
-      (route.method === "get" ? this.router.get
-        : route.method === "post" ? this.router.post
-          : route.method === "put" ? this.router.put
-            : route.method === "del" ? this.router.del
-              : route.method === "patch" ? this.router.patch
-                : route.method === "options" ? this.router.options
-                  : exception(`Invalid method ${route.method} in routes.`)
-    ).call(this.router, route.url, route.handler));
+    routes.forEach(route => {
+      const [method, url, handler]: Route = route;
+
+      (method === "get" ? this.router.get
+        : method === "post" ? this.router.post
+          : method === "put" ? this.router.put
+            : method === "del" ? this.router.del
+              : method === "patch" ? this.router.patch
+                : method === "options" ? this.router.options
+                  : exception(`Invalid method ${method} in routes.`)
+      ).call(this.router, url, handler)
+    });
     this.app.use(this.router.routes());
   }
 
