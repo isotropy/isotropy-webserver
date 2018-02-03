@@ -2,14 +2,13 @@ import { Context, Request, Response, Middleware } from "koa";
 import Koa = require("koa");
 import Router = require("koa-router");
 import koaBody = require("koa-body");
-import { NextFunction } from "express-serve-static-core";
 import exception from "./exception";
 import { Server } from "http";
 
 export type Route = [
   string,
   string,
-  (context: Context, next: NextFunction) => void
+  (context: Context, next: any) => void
 ];
 
 export default class IsotropyServer {
